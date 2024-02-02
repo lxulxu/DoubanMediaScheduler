@@ -1,0 +1,31 @@
+name: Run Douban Calendar Scheduler
+
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'  # 每六小时运行一次
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        pip install feedparser
+        pip install icalendar
+        pip install beautifulsoup4
+        pip install Requests
+
+    - name: Run script
+      env:
+        RSS_URL: ${{ secrets.RSS_URL }}
+      run: python main.py
