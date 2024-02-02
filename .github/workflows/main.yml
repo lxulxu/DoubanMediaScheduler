@@ -32,6 +32,6 @@ jobs:
       
     - name: Commit and Push Changes
       run : |
-      git add .
-      git commit -m "Update data files" || exit 0
-      git push
+        git add .
+        git commit -m "Update data files" || exit 0
+        git push
