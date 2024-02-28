@@ -10,8 +10,7 @@ import requests
 from bs4 import BeautifulSoup
 from icalendar import Calendar, Event
 
-#rss_url = os.environ.get("RSS_URL")
-rss_url = 'https://www.douban.com/feed/people/lxulxu/interests'
+rss_url = os.environ.get("RSS_URL")
 
 def  read_movie_data(file_path)                    : 
     try: 
@@ -46,7 +45,8 @@ def get_movies_from_rss(rss_url):
     for entry in feed.entries: 
         if '想看' in entry.title:
             cleaned_title = entry.title.replace('想看', '').strip()
-            print(cleaned_title)
+            with open('log.txt', 'a') as f: 
+                f.write(cleaned_title)
             movie_info = {
                 'title': cleaned_title,
                 'link': entry.link
