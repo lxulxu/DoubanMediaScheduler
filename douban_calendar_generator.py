@@ -10,7 +10,8 @@ import requests
 from bs4 import BeautifulSoup
 from icalendar import Calendar, Event
 
-rss_url = os.environ.get("RSS_URL")
+#rss_url = os.environ.get("RSS_URL")
+rss_url = 'https://www.douban.com/feed/people/lxulxu/interests'
 
 def  read_movie_data(file_path)                    : 
     try: 
