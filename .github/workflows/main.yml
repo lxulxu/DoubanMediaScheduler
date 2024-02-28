@@ -28,4 +28,4 @@ jobs:
     - name: Run script
       env:
         RSS_URL: ${{ secrets.RSS_URL }}
-      run: python main.py
+      run: python douban_calendar_generator.py
