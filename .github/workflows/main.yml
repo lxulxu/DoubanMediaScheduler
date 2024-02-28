@@ -29,3 +29,10 @@ jobs:
       env:
         RSS_URL: ${{ secrets.RSS_URL }}
       run: python douban_calendar_generator.py
+      
+    - name: Commit and Push Changes
+      run : |
+        git add .
+        git commit -m "Update data files" || exit 0
+        git push
+
