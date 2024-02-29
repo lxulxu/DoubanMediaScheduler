@@ -44,9 +44,8 @@ def get_movies_from_rss(rss_url):
 
     for entry in feed.entries: 
         if '想看' in entry.title:
-            cleaned_title = entry.title.replace('想看', '').strip()
-            with open('log.txt', 'a') as f: 
-                f.write(cleaned_title)
+            cleaned_title = entry.title.replace('想看', '').strip
+           
             movie_info = {
                 'title': cleaned_title,
                 'link': entry.link
@@ -103,9 +102,7 @@ def create_ics(movies, filename='movies_calendar.ics'):
 if __name__        == "__main__":
     file_path        = 'movies_data.json'
     existing_movies  = read_movie_data(file_path)
-    
-    with open('log.txt', 'w') as f: 
-        f.write(rss_url)
+
 
     movies = get_movies_from_rss(rss_url)
     temp_movies_data = []
