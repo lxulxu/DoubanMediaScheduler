@@ -86,5 +86,17 @@
     "http://movie.douban.com/subject/35087675/": {
         "name": "毒液3",
         "release_date": "2024-11-08"
+    },
+    "http://movie.douban.com/subject/35453251/": {
+        "name": "哥斯拉大战金刚2：帝国崛起",
+        "release_date": "2024-03-29"
+    },
+    "http://movie.douban.com/subject/26715496/": {
+        "name": "功夫熊猫4",
+        "release_date": "2024-03-22"
+    },
+    "http://movie.douban.com/subject/36093612/": {
+        "name": "白日之下",
+        "release_date": "2024-04-12"
     }
 }
