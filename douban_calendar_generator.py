@@ -2,7 +2,7 @@
 Author: lxulxu
 Date: 2024-03-01 15:21:33
 LastEditors: lxulxu
-LastEditTime: 2024-03-01 16:14:57
+LastEditTime: 2024-03-01 18:56:33
 Description: 
 
 Copyright (c) 2024 by lxulxu, All Rights Reserved. 
@@ -29,7 +29,7 @@ def fetch_rss_feed(rss_url):
         logging.error(f"Error fetching RSS feed: {e}")
         return None
 
-def save_movie_info(movie_name, movie_link, release_date, cache_file='movies_data.json'): 
+def save_movie_info(movie_name, movie_link, release_date, cache_file='movies_data.json', max_no_date_entries=10): 
     try:
         if not os.path.exists(cache_file) or os.stat(cache_file).st_size == 0:
             with open(cache_file, 'w', encoding='utf-8') as file:
@@ -38,7 +38,12 @@ def save_movie_info(movie_name, movie_link, release_date, cache_file='movies_dat
         with open(cache_file, 'r', encoding='utf-8') as file:
             data = json.load(file)
 
-        data[movie_name] = {'link': movie_link, 'release_date': release_date}
+        if release_date: 
+            data[movie_link] = {'name': movie_name, 'release_date': release_date}
+        else:
+            no_date_entries = sum(1 for info in data.values() if 'release_date' not in info)
+            if no_date_entries < max_no_date_entries:
+                data[movie_link] = {'name': movie_name}
 
         with open(cache_file, 'w', encoding='utf-8') as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
@@ -102,12 +107,19 @@ def generate_ics_file(cache_file='movies_data.json', ics_path="movies.ics"):
         if os.path.exists(cache_file)                     : 
             with open(cache_file, 'r', encoding='utf-8') as file: 
                 data = json.load(file)
-                for movie, info in data.items():
-                    release_date = datetime.datetime.strptime(info['release_date'], "%Y-%m-%d").date()
-                    if today <= release_date <= one_year_later:
+                for movie_link, info in data.items(): 
+                    release_date = info.get('release_date')
+                    if not release_date: 
+                        release_date = fetch_release_date(movie_link)
+                        if release_date:
+                            info['release_date'] = release_date
+                            with open(cache_file, 'w', encoding='utf-8') as file:
+                                json.dump(data, file, ensure_ascii=False, indent=4)
+
+                    if release_date and today <= datetime.datetime.strptime(release_date, "%Y-%m-%d").date() <= one_year_later:
                         event = Event()
-                        event.name = movie
-                        event.begin = info['release_date']
+                        event.name = info['name']
+                        event.begin = release_date
                         calendar.events.add(event)
 
         with open(ics_path, 'w', encoding="utf-8") as f:
