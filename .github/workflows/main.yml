@@ -23,10 +23,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-    - name: Run script
-      env:
-        RSS_URL: ${{ secrets.RSS_URL }}
-      run: python douban_calendar_generator.py
+    - name            : Run script
+      env             : 
+        RSS_URL         : ${{ secrets.RSS_URL }}
+        PYTHONIOENCODING: utf-8
+        PYTHONUTF8      : 1
+
+      run             : python douban_calendar_generator.py
       
     - name: Commit and Push Changes
       run : |

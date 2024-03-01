@@ -93,7 +93,7 @@ def create_ics(movies, filename='movies_calendar.ics'):
         event.add('url', movie['link'])
         cal.add_component(event)
 
-    with open(filename, 'wb') as f:
+    with open(filename, 'wb', encoding='utf-8') as f:
         f.write(cal.to_ical())
 
     return filename
