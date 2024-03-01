@@ -1,4 +1,5 @@
 import json
+import os
 import re
 import time
 from datetime import datetime, timedelta
@@ -103,7 +104,6 @@ if __name__  == "__main__":
     existing_movies = read_movie_data(file_path)
 
     movies = get_movies_from_rss(rss_url)
-    print(movies)
     temp_movies_data = []
 
     for movie in movies:
