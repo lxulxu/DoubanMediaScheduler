@@ -46,5 +46,45 @@
     "超人": {
         "link": "http://movie.douban.com/subject/36188176/",
         "release_date": "2025-07-11"
+    },
+    "http://movie.douban.com/subject/35575567/": {
+        "name": "沙丘2",
+        "release_date": "2024-03-08"
+    },
+    "http://movie.douban.com/subject/36723035/": {
+        "name": "曼达洛人和古古",
+        "release_date": "2026-12-18"
+    },
+    "http://movie.douban.com/subject/35948919/": {
+        "name": "迈克尔",
+        "release_date": "2025-04-18"
+    },
+    "http://movie.douban.com/subject/36700709/": {
+        "name": "十角馆杀人预告",
+        "release_date": "2024-03-22"
+    },
+    "http://movie.douban.com/subject/36188176/": {
+        "name": "超人",
+        "release_date": "2025-07-11"
+    },
+    "http://movie.douban.com/subject/35268614/": {
+        "name": "特技狂人",
+        "release_date": "2024-03-12"
+    },
+    "http://movie.douban.com/subject/35881761/": {
+        "name": "新蝙蝠侠2",
+        "release_date": "2025-10-03"
+    },
+    "http://movie.douban.com/subject/34825559/": {
+        "name": "神奇四侠",
+        "release_date": "2025-07-25"
+    },
+    "http://movie.douban.com/subject/36069854/": {
+        "name": "猩球崛起4：新世界",
+        "release_date": "2024-05-10"
+    },
+    "http://movie.douban.com/subject/35087675/": {
+        "name": "毒液3",
+        "release_date": "2024-11-08"
     }
 }
