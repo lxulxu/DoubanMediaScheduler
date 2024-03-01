@@ -100,12 +100,13 @@ def create_ics(movies, filename='movies_calendar.ics'):
 
     return filename
 
-if __name__        == "__main__":
+if   __name__ == "__main__"   : 
+    with open('log.txt', 'w') as f: 
+        f.write(rss_url)
     file_path        = 'movies_data.json'
     existing_movies  = read_movie_data(file_path)
     
-    with open('log.txt', 'w') as f: 
-        f.write(rss_url)
+    
 
     movies = get_movies_from_rss(rss_url)
     temp_movies_data = []
