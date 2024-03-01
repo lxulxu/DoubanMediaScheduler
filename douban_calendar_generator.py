@@ -1,6 +1,4 @@
-# -*- coding: gbk -*-
 import json
-import os
 import re
 import time
 from datetime import datetime, timedelta
@@ -30,23 +28,23 @@ def write_movie_data(file_path, data):
 
 def update_movie_data(rss_movies, existing_movies): 
     current_date = datetime.now()
-    one_year_later = current_date + timedelta(days=365)
+    one_month_ago = current_date - timedelta(days=31)
+    one_year_later = current_date + timedelta(days=365 * 3)
     
     for movie in rss_movies: 
-        if current_date <= datetime.strptime(movie['release_date'], "%Y-%m-%d") <= one_year_later:
+        if one_month_ago <= datetime.strptime(movie['release_date'], "%Y-%m-%d") <= one_year_later:
             if movie not in existing_movies:
                 existing_movies.append(movie)
     return existing_movies
 
 def get_movies_from_rss(rss_url):
-    feed = feedparser.parse(rss_url)
+    feed   = feedparser.parse(rss_url)
     movies = []
 
     for entry in feed.entries: 
-        if '想看' in entry.title:
+        if '想看' in entry.title: 
             cleaned_title = entry.title.replace('想看', '').strip()
-            with open('log.txt', 'a') as f: 
-                f.write(cleaned_title)
+            print(cleaned_title)
             movie_info = {
                 'title': cleaned_title,
                 'link': entry.link
@@ -100,13 +98,12 @@ def create_ics(movies, filename='movies_calendar.ics'):
 
     return filename
 
-if   __name__ == "__main__"   : 
-    with open('log.txt', 'w') as f: 
-        f.write(rss_url)
-    file_path        = 'movies_data.json'
-    existing_movies  = read_movie_data(file_path)
+if __name__  == "__main__":
+    file_path = 'movies_data.json'
+    existing_movies = read_movie_data(file_path)
 
     movies = get_movies_from_rss(rss_url)
+    print(movies)
     temp_movies_data = []
 
     for movie in movies:
