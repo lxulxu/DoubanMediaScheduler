@@ -23,17 +23,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-
-    - name: Test RSS URL reachability
-      run : |
-          URL="${{ secrets.RSS_URL }}"
-          if curl --head --silent --fail $URL; then
-            echo "RSS URL is reachable."
-          else
-            echo "RSS URL is not reachable."
-            exit 1
-          fi
-
     - name: Run script
       env:
         RSS_URL: ${{ secrets.RSS_URL }}

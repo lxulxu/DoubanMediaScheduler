@@ -12,35 +12,6 @@ from icalendar import Calendar, Event
 
 rss_url = os.environ.get("RSS_URL")
 
-print(f"Attempting to access RSS URL: {rss_url}")
-
-# 测试RSS URL的可达性
-try:
-    response = requests.head(rss_url)
-    if response.status_code == 200:
-        print("RSS URL is reachable.")
-    else:
-        print(f"RSS URL is not reachable. Status code: {response.status_code}")
-except Exception as e:
-    print(f"Failed to reach RSS URL. Error: {e}")
-    exit(1)
-
-# 解析RSS
-try:
-    feed = feedparser.parse(rss_url)
-    if feed.bozo:
-        print(f"Error parsing feed: {feed.bozo_exception}")
-        exit(1)
-    if not feed.entries:
-        print("No entries found in the RSS feed.")
-    else:
-        with open('rss_log.txt', 'a') as file:
-            for entry in feed.entries:
-                file.write(f"Title: {entry.title}, Link: {entry.link}\n")
-        print("RSS feed processed successfully.")
-except Exception as e:
-    print(f"An error occurred while processing the RSS feed: {e}")
-
 def  read_movie_data(file_path)                    : 
     try: 
         with open(file_path, 'r', encoding='utf-8') as file: 
@@ -134,8 +105,6 @@ if   __name__ == "__main__"   :
         f.write(rss_url)
     file_path        = 'movies_data.json'
     existing_movies  = read_movie_data(file_path)
-    
-    
 
     movies = get_movies_from_rss(rss_url)
     temp_movies_data = []
