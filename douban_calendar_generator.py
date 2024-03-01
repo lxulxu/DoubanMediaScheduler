@@ -45,7 +45,6 @@ def get_movies_from_rss(rss_url):
     for entry in feed.entries: 
         if '想看' in entry.title: 
             cleaned_title = entry.title.replace('想看', '').strip()
-            print(cleaned_title)
             movie_info = {
                 'title': cleaned_title,
                 'link': entry.link
