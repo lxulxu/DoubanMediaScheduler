@@ -38,5 +38,13 @@
     "毒液3": {
         "link": "http://movie.douban.com/subject/35087675/",
         "release_date": "2024-11-08"
+    },
+    "哈尔的移动城堡": {
+        "link": "http://movie.douban.com/subject/1308807/",
+        "release_date": "2024-04-30"
+    },
+    "超人": {
+        "link": "http://movie.douban.com/subject/36188176/",
+        "release_date": "2025-07-11"
     }
 }
