@@ -1,72 +1,55 @@
+'''
+Author: lxulxu
+Date: 2024-03-01 15:21:33
+LastEditors: lxulxu
+LastEditTime: 2024-03-01 16:14:57
+Description: 
+
+Copyright (c) 2024 by lxulxu, All Rights Reserved. 
+'''
+import datetime
 import json
+import logging
 import os
+import random
 import re
 import time
-from datetime import datetime, timedelta
 
 import feedparser
 import requests
 from bs4 import BeautifulSoup
-from icalendar import Calendar, Event
+from ics import Calendar, Event
 
-rss_url = os.environ.get("RSS_URL")
+logging.basicConfig(filename='movie_scraper.log', level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
 
-def  read_movie_data(file_path)                    : 
-    try: 
-        with open(file_path, 'r', encoding='utf-8') as file: 
-            data = file.read()
-            if not data:
-                return []
-            return json.loads(data)
-    except json.JSONDecodeError:
-        return []
-    except FileNotFoundError:
-        return []
-
-def write_movie_data(file_path, data):
-    with open(file_path, 'w') as file:
-        json.dump(data, file, indent=4)
-
-def update_movie_data(rss_movies, existing_movies): 
-    current_date = datetime.now()
-    one_month_ago = current_date - timedelta(days=31)
-    one_year_later = current_date + timedelta(days=365 * 3)
-    
-    for movie in rss_movies: 
-        if one_month_ago <= datetime.strptime(movie['release_date'], "%Y-%m-%d") <= one_year_later:
-            if movie not in existing_movies:
-                existing_movies.append(movie)
-    return existing_movies
-
-def get_movies_from_rss(rss_url):
-    feed   = feedparser.parse(rss_url)
-    movies = []
-
-    for entry in feed.entries: 
-        if '想看' in entry.title: 
-            cleaned_title = entry.title.replace('想看', '').strip()
-            movie_info = {
-                'title': cleaned_title,
-                'link': entry.link
-            }
-            movies.append(movie_info)
-    
-    return movies
-
-def fetch_release_date(url): 
-    time.sleep(30)
-    try: 
-        header = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                      'Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363'}
-        response = requests.get(url=url, headers=header)
-        if response.status_code == 200:
-           soup = BeautifulSoup(response.content, 'html.parser')
-           release_date = soup.find('span', {'property': 'v:initialReleaseDate'}).get_text()
-           return extract_valid_date(release_date)
-
-    except Exception as e: 
+def fetch_rss_feed(rss_url):
+    try:
+        return feedparser.parse(rss_url)
+    except Exception as e:
+        logging.error(f"Error fetching RSS feed: {e}")
         return None
+
+def save_movie_info(movie_name, movie_link, release_date, cache_file='movies_data.json'): 
+    try:
+        if not os.path.exists(cache_file) or os.stat(cache_file).st_size == 0:
+            with open(cache_file, 'w', encoding='utf-8') as file:
+                json.dump({}, file, ensure_ascii=False, indent=4)
+
+        with open(cache_file, 'r', encoding='utf-8') as file:
+            data = json.load(file)
+
+        data[movie_name] = {'link': movie_link, 'release_date': release_date}
+
+        with open(cache_file, 'w', encoding='utf-8') as file:
+            json.dump(data, file, ensure_ascii=False, indent=4)
+
+    except json.JSONDecodeError: 
+        logging.error(f"JSON format error in {cache_file}. Initializing file.")
+        with open(cache_file, 'w', encoding='utf-8') as file:
+            json.dump({movie_name: {'link': movie_link, 'release_date': release_date}}, file, ensure_ascii=False, indent=4)
+    except Exception as e:
+        logging.error(f"Error saving movie info for {movie_name}: {e}")
+
 
 def extract_valid_date(date_str): 
     match = re.search(r'\d{4}-\d{2}-\d{2}', date_str)
@@ -74,43 +57,65 @@ def extract_valid_date(date_str):
         return match.group(0)
     return None
 
-def get_release_date(movie, existing_movies)                                      : 
-    for existing_movie in existing_movies                                             : 
-        if  existing_movie['title'] == movie['title'] and 'release_date' in existing_movie: 
-                return existing_movie['release_date']
-    return fetch_release_date(movie['link'])
+def fetch_release_date(url, cache_file='movie_data.json'): 
+    try:
+        if os.path.exists(cache_file):
+            with open(cache_file, 'r', encoding='utf-8') as file:
+                data = json.load(file)
+                for movie, info in data.items():
+                    if info['link'] == url:
+                        return info['release_date']
+    except Exception as e:
+        logging.error(f"Error reading from cache: {e}")
 
-def create_ics(movies, filename='movies_calendar.ics'):
-    cal = Calendar()
-    cal.add('prodid', '-//My Movie Calendar//mxm.dk//')
-    cal.add('version', '2.0')
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    try:
+        time.sleep(random.uniform(1, 3))
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, 'html.parser')
+        date_string = soup.find('span', {'property': 'v:initialReleaseDate'}).get_text()
+        return extract_valid_date(date_string)
+    except Exception as e:
+        logging.error(f"Error fetching release date for {url}: {e}")
+        return None
+    
+def get_movies_from_rss(): 
+    rss_url = os.environ.get("RSS_URL")
+    feed = fetch_rss_feed(rss_url)
+    if not feed:
+        logging.error("Failed to fetch or parse the RSS feed.")
+        return
+    for entry in feed.entries:
+        if "想看" in entry.title:
+            movie_name = entry.title.replace('想看', '').strip()
+            movie_link = entry.link
+            release_date = fetch_release_date(movie_link)
+            if release_date:
+                save_movie_info(movie_name, movie_link, release_date)
 
-    for movie in movies: 
-        event = Event()
-        event.add('summary', movie['title'])
-        event.add('dtstart', datetime.strptime(movie['release_date'], "%Y-%m-%d"))
-        event.add('dtend', datetime.strptime(movie['release_date'], "%Y-%m-%d")) 
-        event.add('url', movie['link'])
-        cal.add_component(event)
+def generate_ics_file(cache_file='movies_data.json', ics_path="movies.ics"): 
+    calendar = Calendar()
+    today = datetime.date.today()
+    one_year_later = today + datetime.timedelta(days=365)
+    try                                            : 
+        if os.path.exists(cache_file)                     : 
+            with open(cache_file, 'r', encoding='utf-8') as file: 
+                data = json.load(file)
+                for movie, info in data.items():
+                    release_date = datetime.datetime.strptime(info['release_date'], "%Y-%m-%d").date()
+                    if today <= release_date <= one_year_later:
+                        event = Event()
+                        event.name = movie
+                        event.begin = info['release_date']
+                        calendar.events.add(event)
 
-    with open(filename, 'wb', encoding='utf-8') as f:
-        f.write(cal.to_ical())
+        with open(ics_path, 'w', encoding="utf-8") as f:
+            f.write(calendar.serialize())
 
-    return filename
+    except Exception as e:
+        logging.error(f"Error generating ICS file: {e}")
 
-if __name__  == "__main__":
-    file_path = 'movies_data.json'
-    existing_movies = read_movie_data(file_path)
-
-    movies = get_movies_from_rss(rss_url)
-    temp_movies_data = []
-
-    for movie in movies:
-        release_date = get_release_date(movie, existing_movies)
-        if release_date:
-            temp_movies_data.append({'title': movie['title'], 'link': movie['link'], 'release_date': release_date})
-
-    updated_movies = update_movie_data(temp_movies_data, existing_movies)
-    write_movie_data(file_path, updated_movies)   
-
-    ics_file = create_ics(updated_movies)
+if __name__ == "__main__":
+    get_movies_from_rss()
+    generate_ics_file()
