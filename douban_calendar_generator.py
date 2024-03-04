@@ -2,7 +2,7 @@
 Author: lxulxu
 Date: 2024-03-01 15:21:33
 LastEditors: lxulxu
-LastEditTime: 2024-03-04 10:07:00
+LastEditTime: 2024-03-04 19:37:25
 Description: 
 
 Copyright (c) 2024 by lxulxu, All Rights Reserved. 
@@ -29,7 +29,7 @@ def fetch_rss_feed(rss_url):
         logging.error(f"Error fetching RSS feed: {e}")
         return None
 
-def save_movie_info(movie_name, movie_link, release_date, cache_file='movies_data.json', max_no_date_entries=10): 
+def save_movie_info(movie_name, movie_link, release_date, cache_file='movies_data.json', max_no_date_entries=20): 
     try:
         if not os.path.exists(cache_file) or os.stat(cache_file).st_size == 0:
             with open(cache_file, 'w', encoding='utf-8') as file:
@@ -73,7 +73,7 @@ def fetch_release_date(url, cache_file='movie_data.json'):
     except Exception as e:
         logging.error(f"Error reading from cache: {e}")
 
-    headers = {'User-Agent': 'Mozilla/5.0'}
+    headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"}
     try:
         time.sleep(random.uniform(1, 3))
         response = requests.get(url, headers=headers)
