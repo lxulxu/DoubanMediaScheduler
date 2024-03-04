@@ -384,7 +384,8 @@
         "name": "拓星者"
     },
     "http://movie.douban.com/subject/30291081/": {
-        "name": "非常目击"
+        "name": "非常目击",
+        "release_date": "2020-08-18"
     },
     "http://movie.douban.com/subject/27091349/": {
         "name": "绣春刀3"
@@ -406,7 +407,8 @@
         "release_date": "1988-04-29"
     },
     "http://movie.douban.com/subject/34461705/": {
-        "name": "曼克"
+        "name": "曼克",
+        "release_date": "2020-11-13"
     },
     "http://movie.douban.com/subject/4111333/": {
         "name": "手机",
@@ -445,7 +447,8 @@
         "release_date": "2020-05-20"
     },
     "http://movie.douban.com/subject/11577091/": {
-        "name": "浴血黑帮 第一季"
+        "name": "浴血黑帮 第一季",
+        "release_date": "2013-09-13"
     },
     "http://movie.douban.com/subject/27157557/": {
         "name": "罗斯福"
@@ -472,7 +475,8 @@
         "release_date": "2027-12-17"
     },
     "http://movie.douban.com/subject/27195753/": {
-        "name": "未定名新星球大战三部曲第二部"
+        "name": "未定名新星球大战三部曲第二部",
+        "release_date": "2025-12-19"
     },
     "http://movie.douban.com/subject/6424756/": {
         "name": "新蝙蝠侠",
@@ -518,7 +522,8 @@
         "name": "诗眼倦天涯"
     },
     "http://movie.douban.com/subject/26757090/": {
-        "name": "刀背藏身"
+        "name": "刀背藏身",
+        "release_date": "2017-08-27"
     },
     "http://movie.douban.com/subject/26417510/": {
         "name": "美杜莎"
@@ -540,7 +545,8 @@
         "release_date": "2012-09-01"
     },
     "http://movie.douban.com/subject/1293564/": {
-        "name": "木兰花"
+        "name": "木兰花",
+        "release_date": "1999-12-08"
     },
     "http://movie.douban.com/subject/1945780/": {
         "name": "血色将至",
@@ -550,7 +556,8 @@
         "name": "无人生还"
     },
     "http://movie.douban.com/subject/30395836/": {
-        "name": "毒枭：墨西哥 第二季"
+        "name": "毒枭：墨西哥 第二季",
+        "release_date": "2020-02-13"
     },
     "http://movie.douban.com/subject/6981153/": {
         "name": "爱尔兰人",
@@ -589,7 +596,8 @@
         "release_date": "1983-03-27"
     },
     "http://movie.douban.com/subject/1301231/": {
-        "name": "电话谋杀案"
+        "name": "电话谋杀案",
+        "release_date": "1954-05-29"
     },
     "http://movie.douban.com/subject/1293182/": {
         "name": "十二怒汉",
@@ -608,7 +616,8 @@
         "release_date": "2002-06-02"
     },
     "http://movie.douban.com/subject/27059130/": {
-        "name": "大佛普拉斯"
+        "name": "大佛普拉斯",
+        "release_date": "2017-10-13"
     },
     "http://movie.douban.com/subject/3570688/": {
         "name": "IT狂人 第二季",
@@ -651,13 +660,15 @@
         "release_date": "2001-01-27"
     },
     "http://movie.douban.com/subject/30289134/": {
-        "name": "恋曲1980"
+        "name": "恋曲1980",
+        "release_date": "2020-10-31"
     },
     "http://movie.douban.com/subject/26581175/": {
         "name": "墨西哥毒枭"
     },
     "http://movie.douban.com/subject/1297147/": {
-        "name": "同窗之爱"
+        "name": "同窗之爱",
+        "release_date": "1984-05-12"
     },
     "http://movie.douban.com/subject/1300029/": {
         "name": "王尔德",
@@ -680,7 +691,8 @@
         "release_date": "2011-11-11"
     },
     "http://movie.douban.com/subject/1293456/": {
-        "name": "莫里斯"
+        "name": "莫里斯",
+        "release_date": "1987-09-05"
     },
     "http://movie.douban.com/subject/3781860/": {
         "name": "兄弟情人",
@@ -709,7 +721,8 @@
         "release_date": "1984-02-17"
     },
     "http://movie.douban.com/subject/22263645/": {
-        "name": "猜火车2"
+        "name": "猜火车2",
+        "release_date": "2017-01-27"
     },
     "http://movie.douban.com/subject/1297201/": {
         "name": "好奇心",
@@ -756,7 +769,8 @@
         "release_date": "1998-08-28"
     },
     "http://movie.douban.com/subject/1780330/": {
-        "name": "致命魔术"
+        "name": "致命魔术",
+        "release_date": "2006-10-17"
     },
     "http://movie.douban.com/subject/1763825/": {
         "name": "亲密有罪",
