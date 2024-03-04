@@ -775,5 +775,17 @@
     "http://movie.douban.com/subject/1763825/": {
         "name": "亲密有罪",
         "release_date": "2006-04-15"
+    },
+    "http://movie.douban.com/subject/34971728/": {
+        "name": "绝密型战",
+        "release_date": "2024-04-19"
+    },
+    "http://movie.douban.com/subject/36090457/": {
+        "name": "头脑特工队2",
+        "release_date": "2024-06-14"
+    },
+    "http://movie.douban.com/subject/36011202/": {
+        "name": "复仇者联盟5",
+        "release_date": "2026-05-01"
     }
 }
