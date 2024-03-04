@@ -2,7 +2,7 @@
 Author: lxulxu
 Date: 2024-03-01 15:21:33
 LastEditors: lxulxu
-LastEditTime: 2024-03-01 18:56:33
+LastEditTime: 2024-03-04 10:07:00
 Description: 
 
 Copyright (c) 2024 by lxulxu, All Rights Reserved. 
@@ -118,7 +118,7 @@ def generate_ics_file(cache_file='movies_data.json', ics_path="movies.ics"):
 
                     if release_date and today <= datetime.datetime.strptime(release_date, "%Y-%m-%d").date() <= one_year_later:
                         event = Event()
-                        event.name = info['name']
+                        event.name = info.get('name')
                         event.begin = release_date
                         calendar.events.add(event)
 
