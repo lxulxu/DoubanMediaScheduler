@@ -105,7 +105,8 @@
         "name": "鸟鸣嘤嘤"
     },
     "http://movie.douban.com/subject/3285065/": {
-        "name": "火车怪客"
+        "name": "火车怪客",
+        "release_date": null
     },
     "http://movie.douban.com/subject/1465790/": {
         "name": "同一屋檐下",
@@ -139,7 +140,8 @@
         "release_date": "2022-04-28"
     },
     "http://movie.douban.com/subject/35914829/": {
-        "name": "安多 第二季"
+        "name": "安多 第二季",
+        "release_date": null
     },
     "http://movie.douban.com/subject/5348089/": {
         "name": "阿凡达3：带种者",
@@ -149,7 +151,8 @@
         "name": "广州十三行"
     },
     "http://movie.douban.com/subject/35284258/": {
-        "name": "星球大战：兰度"
+        "name": "星球大战：兰度",
+        "release_date": null
     },
     "http://movie.douban.com/subject/27668642/": {
         "name": "星球大战外传：尤达大师"
@@ -175,7 +178,8 @@
         "release_date": "2022-04-27"
     },
     "http://movie.douban.com/subject/30359468/": {
-        "name": "未知电影"
+        "name": "未知电影",
+        "release_date": null
     },
     "http://movie.douban.com/subject/35205659/": {
         "name": "黄石 第四季",
@@ -263,10 +267,12 @@
         "name": "金手指"
     },
     "http://movie.douban.com/subject/2333726/": {
-        "name": "记忆的证明"
+        "name": "记忆的证明",
+        "release_date": null
     },
     "http://movie.douban.com/subject/26351864/": {
-        "name": "风林火山"
+        "name": "风林火山",
+        "release_date": null
     },
     "http://movie.douban.com/subject/1758810/": {
         "name": "IT狂人 第一季",
@@ -277,7 +283,8 @@
         "release_date": "2001-09-09"
     },
     "http://movie.douban.com/subject/2263061/": {
-        "name": "拥挤的房间"
+        "name": "拥挤的房间",
+        "release_date": null
     },
     "http://movie.douban.com/subject/1858708/": {
         "name": "罗斯福的崛起"
@@ -370,7 +377,8 @@
         "release_date": "2023-03-01"
     },
     "http://movie.douban.com/subject/35135419/": {
-        "name": "一刀天堂"
+        "name": "一刀天堂",
+        "release_date": null
     },
     "http://movie.douban.com/subject/1439497/": {
         "name": "故园风雨后",
@@ -454,7 +462,8 @@
         "name": "罗斯福"
     },
     "http://movie.douban.com/subject/27099095/": {
-        "name": "大护法2"
+        "name": "大护法2",
+        "release_date": null
     },
     "http://movie.douban.com/subject/1901330/": {
         "name": "星球大战真人剧"
@@ -637,7 +646,8 @@
         "release_date": "2017-12-01"
     },
     "http://movie.douban.com/subject/26738100/": {
-        "name": "围猎"
+        "name": "围猎",
+        "release_date": null
     },
     "http://movie.douban.com/subject/3504940/": {
         "name": "挽歌",

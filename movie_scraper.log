@@ -316,3 +316,4 @@
 2024-03-06 00:24:17,093 ERROR:Error fetching release date for http://movie.douban.com/subject/26022158/: 'NoneType' object has no attribute 'get_text'
 2024-03-06 00:24:20,419 ERROR:Error fetching release date for http://movie.douban.com/subject/26738100/: 'NoneType' object has no attribute 'get_text'
 2024-03-06 00:24:24,325 ERROR:Error fetching release date for http://movie.douban.com/subject/26581175/: 'NoneType' object has no attribute 'get_text'
+2024-03-06 02:19:41,226 ERROR:Error fetching release date for http://movie.douban.com/subject/30359468/: 404 Client Error: Not Found for url: https://movie.douban.com/subject/30359468/
