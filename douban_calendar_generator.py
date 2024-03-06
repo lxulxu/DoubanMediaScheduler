@@ -2,7 +2,7 @@
 Author: lxulxu
 Date: 2024-03-01 15:21:33
 LastEditors: lxulxu
-LastEditTime: 2024-03-06 11:31:49
+LastEditTime: 2024-03-06 13:39:24
 Description: 
 
 Copyright (c) 2024 by lxulxu, All Rights Reserved. 
@@ -30,8 +30,8 @@ def fetch_movie_details(url):
         response.raise_for_status()
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        name_element = soup.find('h1', {'class': 'movie-title'})
-        movie_name   = name_element.text.strip() if name_element else "Unknown Movie"
+        name_element = soup.find('span', {'property': 'v:itemreviewed'})
+        movie_name   = name_element.get_text()if name_element else "Unknown Movie"
 
         date_element = soup.find('span', {'property': 'v:initialReleaseDate'})
         release_date = None
@@ -66,7 +66,7 @@ def fetch_and_update_movies(rss_url, cache_file='movies_data.json', max_attempts
             logging.error("Failed to fetch or parse the RSS feed.")
             return
         for entry in feed.entries: 
-            if  "想看" in entry.title: 
+            if  "�뿴" in entry.title: 
                 movie_link   = entry.link
                 if movie_link not in data: 
                     movie_name, release_date       = fetch_movie_details(movie_link)
