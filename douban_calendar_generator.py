@@ -2,7 +2,7 @@
 Author: lxulxu
 Date: 2024-03-01 15:21:33
 LastEditors: lxulxu
-LastEditTime: 2024-03-06 13:43:20
+LastEditTime: 2024-03-06 13:47:07
 Description: 
 
 Copyright (c) 2024 by lxulxu, All Rights Reserved. 
@@ -31,7 +31,7 @@ def fetch_movie_details(url):
         soup = BeautifulSoup(response.text, 'html.parser')
 
         name_element = soup.find('span', {'property': 'v:itemreviewed'})
-        movie_name   = name_element.get_text()if name_element else "Unknown Movie"
+        movie_name   = name_element.get_text() if name_element else "Unknown Movie"
 
         date_element = soup.find('span', {'property': 'v:initialReleaseDate'})
         release_date = None
