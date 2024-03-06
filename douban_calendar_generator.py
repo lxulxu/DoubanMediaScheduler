@@ -104,7 +104,7 @@ def generate_ics_file(cache_file='movies_data.json', ics_path="movies.ics"):
                     if three_months_ago <= release_date_dt <= one_year_later:
                         event = Event()
                         event.name = info.get('name')
-                        event.begin = datetime.datetime.combine(release_date_dt, datetime.time(23, 0))
+                        event.begin = datetime.datetime.combine(release_date_dt, datetime.time(12, 0))
                         calendar.events.add(event)
 
 
