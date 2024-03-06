@@ -2,7 +2,7 @@
 Author: lxulxu
 Date: 2024-03-01 15:21:33
 LastEditors: lxulxu
-LastEditTime: 2024-03-06 10:17:32
+LastEditTime: 2024-03-06 11:31:49
 Description: 
 
 Copyright (c) 2024 by lxulxu, All Rights Reserved. 
@@ -22,22 +22,29 @@ from ics import Calendar, Event
 
 logging.basicConfig(filename='movie_scraper.log', level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
 
-def fetch_release_date(url): 
+def fetch_movie_details(url): 
     try: 
         time.sleep(random.uniform(1, 3))
         headers               = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"}
         response              = requests.get(url, headers=headers)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, 'html.parser')
+
+        name_element = soup.find('h1', {'class': 'movie-title'})
+        movie_name   = name_element.text.strip() if name_element else "Unknown Movie"
+
         date_element = soup.find('span', {'property': 'v:initialReleaseDate'})
+        release_date = None
         if date_element: 
             date_string = date_element.get_text()
             match = re.search(r'\d{4}-\d{2}-\d{2}', date_string)
-            if match:
-                return match.group(0)
+            if match: 
+                release_date = match.group(0)
+
+        return movie_name, release_date
     except Exception as e:
         logging.error(f"Error fetching release date for {url}: {e}")
-        return None
+        return "Unknown Movie", None
     
 def fetch_rss_feed(rss_url):
     try:
@@ -59,15 +66,20 @@ def fetch_and_update_movies(rss_url, cache_file='movies_data.json', max_attempts
             logging.error("Failed to fetch or parse the RSS feed.")
             return
         for entry in feed.entries: 
-            if  "想看" in entry.title  : 
-                movie_name   = entry.title.replace('想看', '').strip()
+            if  "想看" in entry.title: 
                 movie_link   = entry.link
-                if movie_link not in data:
-                    data[movie_link] = {'name': movie_name, 'release_date': fetch_release_date(movie_link)}
+                if movie_link not in data: 
+                    movie_name, release_date       = fetch_movie_details(movie_link)
+                    data[movie_link]['name'] = movie_name
+                    if release_date:
+                        data[movie_link]['release_date'] = release_date
 
         no_date_movies = [link for link, info in data.items() if not info.get('release_date')]
         for movie_link in random.sample(no_date_movies, min(len(no_date_movies), max_attempts)):
-            data[movie_link]['release_date'] = fetch_release_date(movie_link)
+            movie_name, release_date       = fetch_movie_details(movie_link)
+            data[movie_link]['name'] = movie_name
+            if release_date:
+                data[movie_link]['release_date'] = release_date
 
         with open(cache_file, 'w', encoding='utf-8') as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
