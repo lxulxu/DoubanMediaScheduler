@@ -791,5 +791,13 @@
     "http://movie.douban.com/subject/35448539/": {
         "name": "奇美拉 La Chimera",
         "release_date": "2023-05-26"
+    },
+    "http://www.douban.com/game/35562759/": {
+        "name": "冰汽时代2 Frostpunk 2 (豆瓣)",
+        "release_date": "2024-07-26"
+    },
+    "http://www.douban.com/game/35184766/": {
+        "name": "黑神话：悟空 Black Myth: Wu Kong (豆瓣)",
+        "release_date": "2024-08-20"
     }
 }
