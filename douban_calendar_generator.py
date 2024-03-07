@@ -1,8 +1,17 @@
 '''
 Author: lxulxu
+Date: 2024-03-04 19:52:01
+LastEditors: lxulxu
+LastEditTime: 2024-03-07 16:10:30
+Description: 
+
+Copyright (c) 2024 by lxulxu, All Rights Reserved. 
+'''
+'''
+Author: lxulxu
 Date: 2024-03-01 15:21:33
 LastEditors: lxulxu
-LastEditTime: 2024-03-07 14:59:57
+LastEditTime: 2024-03-07 15:24:23
 Description: 
 
 Copyright (c) 2024 by lxulxu, All Rights Reserved. 
@@ -26,44 +35,56 @@ logging.basicConfig(filename='media_scraper.log', level=logging.INFO, format='%(
 session = requests.Session()
 session.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"})
 
-def fetch_media_details(url): 
-    try: 
-        time.sleep(random.uniform(1, 3))
-
+def fetch_html_content(url, sleep_interval=(1, 3)):
+    try:
+        time.sleep(random.uniform(*sleep_interval))
         response = session.get(url)
         response.raise_for_status()
-        
-        soup = BeautifulSoup(response.text, 'html.parser')
-   
-        date_element = None
-        if "subject" in url:
-            name_element = soup.find('span', {'property': 'v:itemreviewed'})
-            media_name = name_element.get_text().strip() if name_element else "Unknown Media"
-
-            date_element = soup.find('span', {'property': 'v:initialReleaseDate'})
-        elif "game" in url:
-            print(url)
-            name_element = soup.find('title')
-            media_name = name_element.get_text().strip() if name_element else "Unknown Media"
-     
-            date_dt_element = soup.find('dt', string=lambda x: x and '预计上市时间:' in x)
-            if date_dt_element:
-                date_element = date_dt_element.find_next_sibling('dd')
-
-                    
-        release_date = None
-        if date_element: 
-            date_string = date_element.get_text()
-            match = re.search(r'\d{4}-\d{2}-\d{2}', date_string)
-            if match: 
-                release_date = match.group(0)
-
-        return media_name, release_date
-
+        return BeautifulSoup(response.text, 'html.parser')
     except Exception as e:
         logging.error(f"Unexpected error for URL {url}: {str(e)}")
-        return "Unknown Movie", None
+        return None
     
+def fetch_media_details(url):
+    soup = fetch_html_content(url)
+    if not soup:
+        return "Unknown Media", None
+    
+    patterns = {
+        "subject": {
+            "name": ('span', {'property': 'v:itemreviewed'}),
+            "date": ('span', {'property': 'v:initialReleaseDate'})
+        },
+        "game": {
+            "name": ('title', {}),
+            "date": ('dt', lambda x: x and '\u9884\u8ba1\u4e0a\u5e02\u65f6\u95f4:' in x, 'dd')
+        }
+    }
+
+    for media_type, pattern in patterns.items():
+        if media_type in url:
+            name_element = soup.find(*pattern["name"][:-1], **pattern["name"][-1])
+            media_name = name_element.get_text().strip() if name_element else "Unknown Media"
+
+            if isinstance(pattern["date"], tuple) and len(pattern["date"]) == 3:
+                date_dt_element = soup.find(pattern["date"][0], string=pattern["date"][1])
+                date_element = date_dt_element.find_next_sibling(pattern["date"][2]) if date_dt_element else None
+            else:
+                date_element = soup.find(*pattern["date"])
+
+            release_date = parse_date_from_element(date_element)
+            return media_name, release_date
+
+    return "Unknown Media", None
+
+def parse_date_from_element(element):
+    if element:
+        date_string = element.get_text()
+        match = re.search(r'\d{4}-\d{2}-\d{2}', date_string)
+        if match:
+            return match.group(0)
+    return None
+
 def fetch_rss_feed(rss_url):
     try:
         return feedparser.parse(rss_url)
@@ -83,7 +104,7 @@ def fetch_and_update_media(rss_url, cache_file='media_data.json', max_attempts=1
     feed = fetch_rss_feed(rss_url)
     if feed and feed.entries:
         for entry in feed.entries:
-            if "想看" in entry.title or "想玩" in entry.title:
+            if "\u60f3\u770b" in entry.title or "\u60f3\u73a9" in entry.title:
                 update_media_data(entry, data)
 
         no_date_media = [link for link, info in data.items() if not info.get('release_date')]
