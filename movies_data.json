@@ -787,5 +787,9 @@
     "http://movie.douban.com/subject/36011202/": {
         "name": "复仇者联盟5",
         "release_date": "2026-05-01"
+    },
+    "http://movie.douban.com/subject/35448539/": {
+        "name": "奇美拉 La Chimera",
+        "release_date": "2023-05-26"
     }
 }
