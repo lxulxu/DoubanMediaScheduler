@@ -1,21 +1,4 @@
-'''
-Author: lxulxu
-Date: 2024-03-04 19:52:01
-LastEditors: lxulxu
-LastEditTime: 2024-03-07 16:10:30
-Description: 
 
-Copyright (c) 2024 by lxulxu, All Rights Reserved. 
-'''
-'''
-Author: lxulxu
-Date: 2024-03-01 15:21:33
-LastEditors: lxulxu
-LastEditTime: 2024-03-07 15:24:23
-Description: 
-
-Copyright (c) 2024 by lxulxu, All Rights Reserved. 
-'''
 import datetime
 import json
 import logging
@@ -107,7 +90,7 @@ def fetch_and_update_media(rss_url, cache_file='media_data.json', max_attempts=1
             if "\u60f3\u770b" in entry.title or "\u60f3\u73a9" in entry.title:
                 update_media_data(entry, data)
 
-        no_date_media = [link for link, info in data.items() if not info.get('release_date')]
+        no_date_media = [link for link, info in data.items()]
         for media_link in random.sample(no_date_media, min(len(no_date_media), max_attempts)):
             update_media_data({'link': media_link}, data)
 
