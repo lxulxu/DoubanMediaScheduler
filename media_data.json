@@ -811,5 +811,9 @@
     "http://movie.douban.com/subject/26404869/": {
         "name": "惊天魔盗团3 Now You See Me 3",
         "release_date": null
+    },
+    "http://movie.douban.com/subject/36107982/": {
+        "name": "夜访吸血鬼 第二季 Interview with the Vampire Season 2",
+        "release_date": "2024-05-12"
     }
 }
