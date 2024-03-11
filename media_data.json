@@ -803,5 +803,13 @@
     "http://movie.douban.com/subject/36787273/": {
         "name": "沙丘3 Dune: Part Three",
         "release_date": null
+    },
+    "http://movie.douban.com/subject/34940704/": {
+        "name": "完全未知 A Complete Unknown",
+        "release_date": null
+    },
+    "http://movie.douban.com/subject/26404869/": {
+        "name": "惊天魔盗团3 Now You See Me 3",
+        "release_date": null
     }
 }
