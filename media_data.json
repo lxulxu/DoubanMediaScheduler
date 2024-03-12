@@ -815,5 +815,41 @@
     "http://movie.douban.com/subject/36107982/": {
         "name": "夜访吸血鬼 第二季 Interview with the Vampire Season 2",
         "release_date": "2024-05-12"
+    },
+    "http://movie.douban.com/subject/36296618/": {
+        "name": "志愿军：雄兵出击2",
+        "release_date": null
+    },
+    "http://movie.douban.com/subject/36296619/": {
+        "name": "志愿军：雄兵出击3",
+        "release_date": null
+    },
+    "http://movie.douban.com/subject/35398166/": {
+        "name": "娄烨导演未命名新片",
+        "release_date": null
+    },
+    "http://movie.douban.com/subject/34937650/": {
+        "name": "庆余年 第二季",
+        "release_date": null
+    },
+    "http://movie.douban.com/subject/30290253/": {
+        "name": "怒水西流",
+        "release_date": null
+    },
+    "http://movie.douban.com/subject/30181250/": {
+        "name": "封神第二部",
+        "release_date": null
+    },
+    "http://movie.douban.com/subject/30181251/": {
+        "name": "封神第三部",
+        "release_date": null
+    },
+    "http://movie.douban.com/subject/35295960/": {
+        "name": "红海行动2：虎鲸行动",
+        "release_date": null
+    },
+    "http://movie.douban.com/subject/26749938/": {
+        "name": "酱园弄 The Murderer",
+        "release_date": null
     }
 }
