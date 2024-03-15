@@ -851,5 +851,9 @@
     "http://movie.douban.com/subject/26749938/": {
         "name": "酱园弄 The Murderer",
         "release_date": null
+    },
+    "http://movie.douban.com/subject/26184561/": {
+        "name": "独自·上场",
+        "release_date": null
     }
 }
